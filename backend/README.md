@@ -73,7 +73,7 @@ You will need to provide detailed documentation of your API endpoints including 
 
 ### Documentation Example
 
-`GET '/api/v1.0/categories'`
+`GET '/categories'`
 
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
@@ -87,6 +87,217 @@ You will need to provide detailed documentation of your API endpoints including 
   "4": "History",
   "5": "Entertainment",
   "6": "Sports"
+}
+```
+
+`GET '/questions?page=1'`
+ 
+- Fetches a dictionary of questions, number of total questions, current category, categories.
+- Request Arguments: page number
+- Returns: An object with a 4 keys, `questions`, `total_questions`, `success`, `categories`.
+
+```json
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "questions": [
+    {
+      "answer": "Apollo 13",
+      "category": 5,
+      "difficulty": 4,
+      "id": 2,
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    },
+    {
+      "answer": "Tom Cruise",
+      "category": 5,
+      "difficulty": 4,
+      "id": 4,
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    },
+    {
+      "answer": "Edward Scissorhands",
+      "category": 5,
+      "difficulty": 3,
+      "id": 6,
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    },
+    {
+      "answer": "Brazil",
+      "category": 6,
+      "difficulty": 3,
+      "id": 10,
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    },
+    {
+      "answer": "Uruguay",
+      "category": 6,
+      "difficulty": 4,
+      "id": 11,
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    },
+    {
+      "answer": "George Washington Carver",
+      "category": 4,
+      "difficulty": 2,
+      "id": 12,
+      "question": "Who invented Peanut Butter?"
+    },
+    {
+      "answer": "Lake Victoria",
+      "category": 3,
+      "difficulty": 2,
+      "id": 13,
+      "question": "What is the largest lake in Africa?"
+    },
+    {
+      "answer": "The Palace of Versailles",
+      "category": 3,
+      "difficulty": 3,
+      "id": 14,
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    },
+    {
+      "answer": "Agra",
+      "category": 3,
+      "difficulty": 2,
+      "id": 15,
+      "question": "The Taj Mahal is located in which Indian city?"
+    },
+    {
+      "answer": "Escher",
+      "category": 2,
+      "difficulty": 1,
+      "id": 16,
+      "question": "Which Dutch graphic artist-initials M C was a creator of optical illusions?"
+    }
+  ],
+  "success": true,
+  "total_questions": 18
+}
+```
+
+`DELETE '/questions/<int:question_id>'`
+
+- Deletes a question using a question ID.
+- Request Arguments: question ID
+- Returns: An object with a tww key, `success`, that contains a boolean value, and `deleted` that contains the ID of the deleted question.
+
+```json
+{
+  "deleted": 1,
+  "success": true
+}
+```
+
+`POST '/questions'`
+
+- Creates a new question using the submitted question, answer, difficulty, and category.
+- Request Arguments: None
+- Returns: An object with a three key, `success`, that contains a boolean value, `created` that contains the ID of the created question.
+
+
+```json
+{
+  "created": 19,
+  "success": true,
+}
+```
+
+`POST '/questions/search'`
+
+- Searches for questions using a search term.
+- Request Arguments: None
+- Returns: An object with a three key, `success`, that contains a boolean value, `questions` that contains a list of questions, and `total_questions` that contains the total number of questions.
+
+```json
+{
+  "questions": [
+    {
+      "answer": "Apollo 13",
+      "category": 5,
+      "difficulty": 4,
+      "id": 2,
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    },
+    {
+      "answer": "Tom Cruise",
+      "category": 5,
+      "difficulty": 4,
+      "id": 4,
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    },
+    {
+      "answer": "Edward Scissorhands",
+      "category": 5,
+      "difficulty": 3,
+      "id": 6,
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young"
+    }
+  ],
+  "success": true,
+  "total_questions": 3
+}
+```
+
+`GET '/categories/<int:category_id>/questions'`
+
+- Fetches a dictionary of questions based on category.
+- Request Arguments: category ID
+- Returns: An object with a three key, `success`, that contains a boolean value, `questions` that contains a list of questions, and `total_questions` that contains the total number of questions.
+
+```json
+{
+  "questions": [
+    {
+      "answer": "Apollo 13",
+      "category": 5,
+      "difficulty": 4,
+      "id": 2,
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    },
+    {
+      "answer": "Tom Cruise",
+      "category": 5,
+      "difficulty": 4,
+      "id": 4,
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    },
+    {
+      "answer": "Edward Scissorhands",
+      "category": 5,
+      "difficulty": 3,
+      "id": 6,
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young"
+    }
+  ],
+  "success": true,
+  "total_questions": 3
+}
+```
+
+`POST '/quizzes'`
+
+- Fetches a random question within the given category, if provided, and that is not one of the previous questions.
+- Request Arguments: None
+- Returns: An object with a three key, `success`, that contains a boolean value, `question` that contains a list of questions, and `total_questions` that contains the total number of questions.
+
+```json
+{
+  "question": {
+    "answer": "Udacity",
+    "category": 6,
+    "difficulty": 3,
+    "id": 10,
+    "question": "Which is the best website to learn programming?"
+  },
+  "success": true
 }
 ```
 
