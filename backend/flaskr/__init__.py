@@ -193,6 +193,8 @@ def create_app(test_config=None):
             questions = Question.query.filter(
                 Question.category == quiz_category['id']).all()
         formatted_questions = [question.format() for question in questions]
+        if len(formatted_questions) == 0:
+            abort(404)
         for question in formatted_questions:
             if question['id'] not in previous_questions:
                 return jsonify({
